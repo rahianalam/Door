@@ -1,0 +1,53 @@
+<section class="latest-guides-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title"><?php esc_html_e('Latest Guides', 'dooroora'); ?></h2>
+            <p class="section-subtitle"><?php esc_html_e('Recently Published & Updated', 'dooroora'); ?></p>
+        </div>
+
+        <div class="latest-guides-grid">
+            <?php
+            $latest = new WP_Query(array(
+                'posts_per_page' => 12,
+                'post_status'    => 'publish',
+            ));
+            while ($latest->have_posts()) : $latest->the_post();
+                $updated = dooroora_get_post_updated_date();
+            ?>
+                <article id="post-<?php the_ID(); ?>" <?php post_class('latest-guide-card'); ?>>
+                    <?php if (has_post_thumbnail()) : ?>
+                        <a class="latest-guide-card-thumb" href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail('blog-grid'); ?>
+                        </a>
+                    <?php endif; ?>
+                    <div class="latest-guide-card-body">
+                        <?php if (has_category()) : ?>
+                            <div class="latest-guide-card-category"><?php the_category(', '); ?></div>
+                        <?php endif; ?>
+                        <h3 class="latest-guide-card-title">
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h3>
+                        <div class="latest-guide-card-meta">
+                            <span class="guide-card-author"><?php echo esc_html(get_the_author()); ?></span>
+                            <span class="guide-card-date"><?php echo esc_html(get_the_date()); ?></span>
+                            <?php if ($updated) : ?>
+                                <span class="guide-card-updated"><?php echo esc_html(sprintf(__('Updated %s', 'dooroora'), $updated)); ?></span>
+                            <?php endif; ?>
+                            <span class="guide-card-readtime"><?php echo esc_html(dooroora_reading_time()); ?></span>
+                        </div>
+                        <div class="latest-guide-card-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 30); ?></div>
+                    </div>
+                </article>
+            <?php
+            endwhile;
+            wp_reset_postdata();
+            ?>
+        </div>
+
+        <div class="latest-guides-cta">
+            <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="btn btn-primary">
+                <?php esc_html_e('View All Guides', 'dooroora'); ?>
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+<article id="post-<?php the_ID(); ?>" <?php post_class('blog-card'); ?>>
+    <?php if (has_post_thumbnail()) : ?>
+        <a class="blog-card-thumb" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+            <?php the_post_thumbnail('blog-grid', array('loading' => 'lazy')); ?>
+        </a>
+    <?php endif; ?>
+
+    <div class="blog-card-body">
+        <?php if (has_category()) : ?>
+            <div class="blog-card-category"><?php the_category(', '); ?></div>
+        <?php endif; ?>
+
+        <h3 class="blog-card-title">
+            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+        </h3>
+
+        <div class="blog-card-meta">
+            <span class="blog-card-author">
+                <?php esc_html_e('By', 'dooroora'); ?> <?php the_author_posts_link(); ?>
+            </span>
+            <span class="blog-card-date"><?php echo esc_html(get_the_date()); ?></span>
+            <?php
+            $updated = dooroora_get_post_updated_date();
+            if ($updated) :
+            ?>
+                <span class="blog-card-updated"><?php echo esc_html(sprintf(__('Updated %s', 'dooroora'), $updated)); ?></span>
+            <?php endif; ?>
+            <span class="blog-card-readtime"><?php echo esc_html(dooroora_reading_time()); ?></span>
+        </div>
+
+        <div class="blog-card-excerpt">
+            <?php echo esc_html(dooroora_excerpt(30)); ?>
+        </div>
+
+        <a class="blog-card-cta" href="<?php the_permalink(); ?>">
+            <?php esc_html_e('Read Guide', 'dooroora'); ?> &rarr;
+        </a>
+    </div>
+</article>

@@ -1,0 +1,344 @@
+<?php
+/**
+ * Template Name: Contact Page
+ * Template Post Type: page
+ *
+ * Dedicated Contact Page Template for DoorOora
+ *
+ * @package DoorOora
+ * @since 1.0.0
+ */
+
+get_header();
+?>
+
+<main id="primary" class="site-main contact-page-wrapper">
+    <div class="container">
+        <!-- Hero & Breadcrumbs -->
+        <header class="contact-hero">
+            <nav class="contact-breadcrumbs" aria-label="<?php esc_attr_e('Breadcrumbs', 'dooroora'); ?>">
+                <a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'dooroora'); ?></a>
+                <span class="sep">&rsaquo;</span>
+                <span class="current"><?php esc_html_e('Contact Us', 'dooroora'); ?></span>
+            </nav>
+            <h1 class="contact-title"><?php esc_html_e('Get in Touch With DoorOora', 'dooroora'); ?></h1>
+            <p class="contact-lead">
+                <?php esc_html_e('Have a technical question about door hardware, locks, or weatherproofing? Need to report an editorial correction or discuss brand partnerships? Connect with our team below.', 'dooroora'); ?>
+            </p>
+        </header>
+
+        <!-- Quick Contact Channels -->
+        <section class="contact-channels-grid" aria-label="<?php esc_attr_e('Contact Channels', 'dooroora'); ?>">
+            <div class="contact-channel-card">
+                <div class="contact-channel-icon">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+                <h2 class="contact-channel-title"><?php esc_html_e('Technical Door Advice', 'dooroora'); ?></h2>
+                <p class="contact-channel-desc">
+                    <?php esc_html_e('Questions about lock installation, hinge sagging, threshold gaps, or draft exclusion? We provide DIY diagnostic assistance.', 'dooroora'); ?>
+                </p>
+                <a href="#contact-form-section" class="contact-channel-link">
+                    <?php esc_html_e('Ask a Specialist', 'dooroora'); ?> &darr;
+                </a>
+            </div>
+
+            <div class="contact-channel-card">
+                <div class="contact-channel-icon">
+                    <i class="fa-solid fa-pen-ruler"></i>
+                </div>
+                <h2 class="contact-channel-title"><?php esc_html_e('Editorial & Fact-Checking', 'dooroora'); ?></h2>
+                <p class="contact-channel-desc">
+                    <?php esc_html_e('We adhere to rigorous technical standards. Report an outdated building code, manufacturer spec discrepancy, or typo.', 'dooroora'); ?>
+                </p>
+                <a href="mailto:editorial@dooroora.com" class="contact-channel-link">
+                    editorial@dooroora.com &rarr;
+                </a>
+            </div>
+
+            <div class="contact-channel-card">
+                <div class="contact-channel-icon">
+                    <i class="fa-solid fa-handshake"></i>
+                </div>
+                <h2 class="contact-channel-title"><?php esc_html_e('Partnerships & Testing', 'dooroora'); ?></h2>
+                <p class="contact-channel-desc">
+                    <?php esc_html_e('Hardware manufacturers, smart home brands, and commercial press inquiries regarding independent product testing and coverage.', 'dooroora'); ?>
+                </p>
+                <a href="mailto:partnerships@dooroora.com" class="contact-channel-link">
+                    partnerships@dooroora.com &rarr;
+                </a>
+            </div>
+        </section>
+
+        <!-- Main Form & Information Grid -->
+        <div class="contact-main-grid" id="contact-form-section">
+            <!-- Left Column: Interactive Form -->
+            <div class="contact-form-card">
+                <div class="contact-form-header">
+                    <h2 class="contact-form-title"><?php esc_html_e('Send Us a Message', 'dooroora'); ?></h2>
+                    <p class="contact-form-subtitle">
+                        <?php esc_html_e('Fill out the form below. All inquiries are typically answered within 24 to 48 business hours.', 'dooroora'); ?>
+                    </p>
+                </div>
+
+                <form id="dooroora-contact-form" class="dooroora-contact-form" method="post" novalidate>
+                    <!-- Antispam Honeypot (hidden from human visitors) -->
+                    <div class="contact-hp" aria-hidden="true">
+                        <label for="contact-hp-field">Website URL (Leave blank)</label>
+                        <input type="text" id="contact-hp-field" name="dooroora_website_url" value="" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <!-- Nonce & Action -->
+                    <input type="hidden" name="action" value="dooroora_contact_form">
+                    <input type="hidden" name="nonce" value="<?php echo esc_attr(wp_create_nonce('dooroora_nonce')); ?>">
+
+                    <div class="contact-form-row two-cols">
+                        <div>
+                            <label for="contact-name" class="contact-label">
+                                <?php esc_html_e('Your Name', 'dooroora'); ?> <span class="required">*</span>
+                            </label>
+                            <input type="text" id="contact-name" name="name" class="contact-input" placeholder="<?php esc_attr_e('John Doe', 'dooroora'); ?>" required>
+                        </div>
+                        <div>
+                            <label for="contact-email" class="contact-label">
+                                <?php esc_html_e('Email Address', 'dooroora'); ?> <span class="required">*</span>
+                            </label>
+                            <input type="email" id="contact-email" name="email" class="contact-input" placeholder="<?php esc_attr_e('john@example.com', 'dooroora'); ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-row two-cols">
+                        <div>
+                            <label for="contact-inquiry-type" class="contact-label">
+                                <?php esc_html_e('Inquiry Category', 'dooroora'); ?> <span class="required">*</span>
+                            </label>
+                            <select id="contact-inquiry-type" name="inquiry_type" class="contact-select">
+                                <option value="technical"><?php esc_html_e('Technical Hardware & DIY Advice', 'dooroora'); ?></option>
+                                <option value="editorial"><?php esc_html_e('Editorial Correction / Code Update', 'dooroora'); ?></option>
+                                <option value="product-testing"><?php esc_html_e('Product Review / Testing Request', 'dooroora'); ?></option>
+                                <option value="partnership"><?php esc_html_e('Commercial & Brand Partnership', 'dooroora'); ?></option>
+                                <option value="general"><?php esc_html_e('General Inquiry / Other', 'dooroora'); ?></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="contact-subject" class="contact-label">
+                                <?php esc_html_e('Subject', 'dooroora'); ?> <span class="required">*</span>
+                            </label>
+                            <input type="text" id="contact-subject" name="subject" class="contact-input" placeholder="<?php esc_attr_e('e.g., Question about storm door closer tension', 'dooroora'); ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-row">
+                        <label for="contact-message" class="contact-label">
+                            <?php esc_html_e('Message Details', 'dooroora'); ?> <span class="required">*</span>
+                        </label>
+                        <textarea id="contact-message" name="message" class="contact-textarea" rows="6" placeholder="<?php esc_attr_e('Please provide as much context as possible. If asking about a door or lock issue, mention the door material, thickness, jamb type, or brand/model...', 'dooroora'); ?>" required></textarea>
+                    </div>
+
+                    <div class="contact-form-row">
+                        <button type="submit" class="contact-submit-btn" id="contact-submit-btn">
+                            <span class="btn-text"><?php esc_html_e('Send Message', 'dooroora'); ?></span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+
+                    <div id="contact-form-feedback" class="contact-form-feedback" style="display:none;" role="alert"></div>
+                </form>
+            </div>
+
+            <!-- Right Column: Direct Info & Sidebar -->
+            <aside class="contact-sidebar" aria-label="<?php esc_attr_e('Direct Contact Information', 'dooroora'); ?>">
+                <!-- Direct Inquiries Card -->
+                <div class="contact-info-card">
+                    <div class="contact-info-card-header">
+                        <i class="fa-solid fa-headset"></i>
+                        <h3 class="contact-info-card-title"><?php esc_html_e('Direct Channels', 'dooroora'); ?></h3>
+                    </div>
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <span class="contact-info-label"><?php esc_html_e('General & Reader Support', 'dooroora'); ?></span>
+                            <span class="contact-info-value"><a href="mailto:contact@dooroora.com">contact@dooroora.com</a></span>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-label"><?php esc_html_e('Editorial & Technical Review', 'dooroora'); ?></span>
+                            <span class="contact-info-value"><a href="mailto:editorial@dooroora.com">editorial@dooroora.com</a></span>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-label"><?php esc_html_e('Commercial & Partnerships', 'dooroora'); ?></span>
+                            <span class="contact-info-value"><a href="mailto:partnerships@dooroora.com">partnerships@dooroora.com</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operating Hours & SLA Card -->
+                <div class="contact-info-card">
+                    <div class="contact-info-card-header">
+                        <i class="fa-solid fa-clock"></i>
+                        <h3 class="contact-info-card-title"><?php esc_html_e('Hours & Response Times', 'dooroora'); ?></h3>
+                    </div>
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <span class="contact-info-label"><?php esc_html_e('Operating Schedule', 'dooroora'); ?></span>
+                            <span class="contact-info-value"><?php esc_html_e('Monday &ndash; Friday: 9:00 AM &ndash; 5:00 PM EST', 'dooroora'); ?></span>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-label"><?php esc_html_e('Expected Turnaround', 'dooroora'); ?></span>
+                            <span class="contact-info-value"><?php esc_html_e('24 to 48 business hours', 'dooroora'); ?></span>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-label"><?php esc_html_e('Weekend Inquiries', 'dooroora'); ?></span>
+                            <span class="contact-info-value"><?php esc_html_e('Reviewed on the following business day', 'dooroora'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Notice Box -->
+                <div class="contact-notice-card">
+                    <div class="contact-notice-header">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span><?php esc_html_e('Important Reader Notice', 'dooroora'); ?></span>
+                    </div>
+                    <p class="contact-notice-text">
+                        <?php esc_html_e('DoorOora is an independent digital publication, educational testing lab, and technical resource. We do not dispatch field technicians or provide emergency mobile locksmith services. If you are locked out or experiencing an urgent security emergency, please contact a licensed local locksmith or emergency services.', 'dooroora'); ?>
+                    </p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="contact-faq-section" aria-label="<?php esc_attr_e('Frequently Asked Questions', 'dooroora'); ?>">
+            <div class="contact-faq-header">
+                <h2><?php esc_html_e('Frequently Asked Questions', 'dooroora'); ?></h2>
+                <p><?php esc_html_e('Common inquiries answered before reaching out to our team.', 'dooroora'); ?></p>
+            </div>
+
+            <div class="contact-faq-grid">
+                <div class="contact-faq-item">
+                    <h3 class="contact-faq-q">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <?php esc_html_e('Can DoorOora recommend the exact hardware setup for my home?', 'dooroora'); ?>
+                    </h3>
+                    <p class="contact-faq-a">
+                        <?php esc_html_e('Yes! When submitting your question, include your door slab material (solid wood, fiberglass, steel), thickness (typically 1-3/8" interior or 1-3/4" exterior), backset measurement (2-3/8" or 2-3/4"), and climate exposure. The more detail you share, the more tailored our guidance will be.', 'dooroora'); ?>
+                    </p>
+                </div>
+
+                <div class="contact-faq-item">
+                    <h3 class="contact-faq-q">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <?php esc_html_e('How do you test and review door security hardware?', 'dooroora'); ?>
+                    </h3>
+                    <p class="contact-faq-a">
+                        <?php esc_html_e('Every lock, hinge, closer, and seal we review is evaluated against ANSI/BHMA grading standards (Grade 1, 2, or 3), UL fire ratings, physical kick-in resistance, cycle testing, and ease of DIY installation. We maintain strict editorial independence and never accept compensation for positive ratings.', 'dooroora'); ?>
+                    </p>
+                </div>
+
+                <div class="contact-faq-item">
+                    <h3 class="contact-faq-q">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <?php esc_html_e('How do I submit an editorial correction or outdated code report?', 'dooroora'); ?>
+                    </h3>
+                    <p class="contact-faq-a">
+                        <?php esc_html_e('Choose "Editorial Correction / Code Update" in the contact form, include the URL of the article, and specify the paragraph or measurement you believe requires revision. Our editorial and technical review staff verifies all citations against current IBC/IRC guidelines.', 'dooroora'); ?>
+                    </p>
+                </div>
+
+                <div class="contact-faq-item">
+                    <h3 class="contact-faq-q">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <?php esc_html_e('Do you accept unsolicited guest articles or paid link insertions?', 'dooroora'); ?>
+                    </h3>
+                    <p class="contact-faq-a">
+                        <?php esc_html_e('No. To maintain the highest quality and technical accuracy for our readers, all content on DoorOora is researched, written, and verified in-house by our dedicated specialists. Inquiries offering payment for link placements or generic guest blogs will be disregarded.', 'dooroora'); ?>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('dooroora-contact-form');
+    if (!form) return;
+
+    var submitBtn = document.getElementById('contact-submit-btn');
+    var feedback = document.getElementById('contact-form-feedback');
+    var ajaxUrl = (typeof dooroora_ajax !== 'undefined') ? dooroora_ajax.ajax_url : '<?php echo esc_url(admin_url("admin-ajax.php")); ?>';
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Clear previous state
+        feedback.style.display = 'none';
+        feedback.className = 'contact-form-feedback';
+        feedback.textContent = '';
+
+        // Basic client validation
+        var nameInput = document.getElementById('contact-name');
+        var emailInput = document.getElementById('contact-email');
+        var messageInput = document.getElementById('contact-message');
+
+        if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
+            showFeedback('<?php echo esc_js(__('Please enter your full name.', 'dooroora')); ?>', 'error');
+            nameInput.focus();
+            return;
+        }
+
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+            showFeedback('<?php echo esc_js(__('Please enter a valid email address.', 'dooroora')); ?>', 'error');
+            emailInput.focus();
+            return;
+        }
+
+        if (!messageInput.value.trim() || messageInput.value.trim().length < 10) {
+            showFeedback('<?php echo esc_js(__('Please write a detailed message (at least 10 characters).', 'dooroora')); ?>', 'error');
+            messageInput.focus();
+            return;
+        }
+
+        // Set loading state
+        submitBtn.disabled = true;
+        var originalBtnHtml = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <?php echo esc_js(__("Sending message...", "dooroora")); ?>';
+
+        var formData = new FormData(form);
+
+        fetch(ajaxUrl, {
+            method: 'POST',
+            body: formData,
+            credentials: 'same-origin'
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (res) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHtml;
+
+            if (res && res.success) {
+                showFeedback(res.data.message || '<?php echo esc_js(__("Thank you! Your message has been sent.", "dooroora")); ?>', 'success');
+                form.reset();
+            } else {
+                var err = (res && res.data && res.data.message) ? res.data.message : '<?php echo esc_js(__("An unexpected error occurred. Please try again or email us directly.", "dooroora")); ?>';
+                showFeedback(err, 'error');
+            }
+        })
+        .catch(function () {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHtml;
+            showFeedback('<?php echo esc_js(__("Network error occurred. Please try again or email contact@dooroora.com.", "dooroora")); ?>', 'error');
+        });
+    });
+
+    function showFeedback(msg, type) {
+        feedback.textContent = msg;
+        feedback.className = 'contact-form-feedback ' + type;
+        feedback.style.display = 'block';
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+});
+</script>
+
+<?php
+get_footer();
