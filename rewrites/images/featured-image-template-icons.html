@@ -1,0 +1,61 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="package/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1376px;height:768px;overflow:hidden;background:#0f2440}
+.card{position:relative;width:1376px;height:768px;overflow:hidden;font-family:Inter,sans-serif;color:#fff;
+  background:radial-gradient(120% 140% at 0% 0%,#1d4470 0%,#0f2440 55%,#0a1a30 100%)}
+.photo{position:absolute;top:0;right:0;width:700px;height:768px;background:url('{{photo}}') {{pos}}/cover no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 32%);filter:saturate(.95) contrast(1.05)}
+.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,48,.15),rgba(10,26,48,.55))}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,transparent 60%)}
+.ghost{position:absolute;left:-60px;bottom:-90px;font-size:420px;color:rgba(184,134,11,.07);transform:rotate(-12deg)}
+.content{position:absolute;left:84px;top:78px;width:760px}
+.chip{display:inline-flex;align-items:center;gap:12px;padding:10px 20px 10px 12px;border-radius:999px;background:rgba(184,134,11,.14);border:1px solid rgba(212,165,40,.45);
+  font-weight:600;font-size:19px;letter-spacing:.12em;text-transform:uppercase;color:#e9c46a}
+.chip i{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#d4a528,#b8860b);color:#0f2440;display:grid;place-items:center;font-size:17px}
+h1{margin-top:34px;font-family:'Playfair Display',serif;font-weight:700;font-size:{{size}}px;line-height:1.08;letter-spacing:-.01em;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+h1 em{font-style:normal;background:linear-gradient(90deg,#f1d27a,#d4a528);-webkit-background-clip:text;color:transparent}
+.rule{margin:30px 0 26px;width:120px;height:4px;border-radius:4px;background:linear-gradient(90deg,#d4a528,rgba(212,165,40,0))}
+.sub{font-size:24px;line-height:1.45;color:#c9d6e6;max-width:640px}
+.feats{position:absolute;left:84px;bottom:112px;display:flex;gap:14px}
+.feat{display:flex;align-items:center;gap:12px;padding:13px 20px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px);font-size:19px;font-weight:600;color:#eef3f9}
+.feat i{color:#e9c46a;font-size:20px}
+.brand{position:absolute;left:84px;bottom:46px;display:flex;align-items:center;gap:12px;font-size:21px;font-weight:700;letter-spacing:.02em}
+.brand .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#d4a528,#b8860b);display:grid;place-items:center;color:#0f2440;font-size:18px}
+.brand span{color:#8ea3bd;font-weight:500;margin-left:6px}
+.badge{display:none;position:absolute;right:56px;bottom:46px;width:150px;height:150px;border-radius:50%;background:rgba(15,36,64,.82);border:2px solid rgba(212,165,40,.7);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.badge i{font-size:46px;color:#e9c46a}
+.badge b{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#dbe5f0;text-align:center;line-height:1.2}
+.art{position:absolute;right:40px;top:50%;width:560px;height:560px;transform:translateY(-54%)}
+.ring{position:absolute;border-radius:50%;border:1.5px solid rgba(212,165,40,.35);left:50%;top:50%;transform:translate(-50%,-50%)}
+.r1{width:540px;height:540px;border-style:dashed;border-color:rgba(212,165,40,.22)}.r2{width:400px;height:400px}.r3{width:270px;height:270px;background:radial-gradient(circle,rgba(212,165,40,.18),rgba(212,165,40,0) 70%)}
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:210px;height:210px;border-radius:50%;background:linear-gradient(145deg,#24507f,#12304f);border:3px solid #d4a528;display:grid;place-items:center;box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.12)}
+.core i{font-size:96px;background:linear-gradient(180deg,#f6dc8c,#c9961f);-webkit-background-clip:text;color:transparent}
+.orb{position:absolute;width:92px;height:92px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;backdrop-filter:blur(6px);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.orb i{font-size:38px;color:#e9c46a}.o1{left:40px;top:70px}.o2{right:20px;top:200px}.o3{left:90px;bottom:40px}
+.badge{display:none!important}</style></head>
+<body><div class="card">
+  <div class="art"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+<div class="core"><i class="fa-solid {{arti}}"></i></div>
+<div class="orb o1"><i class="fa-solid {{o1}}"></i></div><div class="orb o2"><i class="fa-solid {{o2}}"></i></div><div class="orb o3"><i class="fa-solid {{o3}}"></i></div></div>
+  <div class="grid"></div>
+  <i class="fa-solid {{ghost}} ghost"></i>
+  <div class="content">
+    <div class="chip"><i class="fa-solid {{chipicon}}"></i>{{chip}}</div>
+    <h1>{{title}}</h1>
+    <div class="rule"></div>
+    <div class="sub">{{sub}}</div>
+  </div>
+  <div class="feats">
+    <div class="feat"><i class="fa-solid {{f1i}}"></i>{{f1}}</div>
+    <div class="feat"><i class="fa-solid {{f2i}}"></i>{{f2}}</div>
+    <div class="feat"><i class="fa-solid {{f3i}}"></i>{{f3}}</div>
+  </div>
+  <div class="brand"><div class="logo"><i class="fa-solid fa-door-open"></i></div>Dooroora<span>dooroora.com</span></div>
+  <div class="badge"><i class="fa-solid {{badgei}}"></i><b>{{badge}}</b></div>
+</div></body></html>
