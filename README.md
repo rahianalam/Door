@@ -6,3 +6,5 @@ Source for the custom WordPress theme running on dooroora.com.
 - `theme-backups/` — old `*.bak.<timestamp>` copies that used to sit inside the live theme folder.
   They were removed from the server because the web server served them as public downloads;
   they are kept here for history only and are not part of the theme.
+- `novamira-sandbox/` — copies of PHP snippets loaded from `wp-content/novamira-sandbox/` on the live site
+  (e.g. the 301 redirect from duplicate category URLs to each post's canonical URL).
