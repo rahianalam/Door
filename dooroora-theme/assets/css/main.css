@@ -3015,11 +3015,12 @@ body {
 }
 
 /* 5. Off-Canvas Menu Safety */
-.off-canvas:not(.is-open):not(.active) {
+.off-canvas:not(.open):not(.is-open):not(.active) {
     visibility: hidden !important;
     pointer-events: none !important;
 }
 
+.off-canvas.open,
 .off-canvas.is-open,
 .off-canvas.active {
     visibility: visible !important;
