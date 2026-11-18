@@ -3444,3 +3444,4 @@ body.single-tool .calc-header > *:not(.calc-badge):not(.calc-title):not(.calc-su
     body.single-tool .calc-header { row-gap: 6px; }
     body.single-tool .calc-title { margin-top: 2px !important; }
 }
+body.single-tool .single-header { width: 100vw !important; box-sizing: border-box !important; }
