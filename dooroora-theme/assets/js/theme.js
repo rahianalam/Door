@@ -840,10 +840,46 @@ document.addEventListener('DOMContentLoaded', function() {
             badgeRow.innerHTML = `
                 <span class="tool-app-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Free Interactive Tool</span>
                 <span class="tool-app-meta-pill"><i class="fa-solid fa-bolt"></i> Instant Calculations</span>
-                <span class="tool-app-meta-pill"><i class="fa-solid fa-shield-halved"></i> Engineering Verified</span>
+                <span class="tool-app-meta-pill"><i class="fa-solid fa-circle-check"></i> No Sign-up Needed</span>
                 <span class="tool-app-meta-pill"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Ready</span>
             `;
             singleHeader.appendChild(badgeRow);
+        }
+
+        // Hero enhancements: breadcrumb trail, tool icon, eyebrow and one-line summary
+        if (singleHeader && !singleHeader.querySelector('.tool-hero-icon')) {
+            const titleEl = singleHeader.querySelector('.single-title');
+            const iconMap = { 'door-size-calc-app': 'fa-ruler-combined', 'lock-matcher-app': 'fa-shield-halved', 'garage-wire-calc-app': 'fa-bolt' };
+            let iconClass = 'fa-screwdriver-wrench';
+            Object.keys(iconMap).forEach(function(id) { if (document.getElementById(id)) iconClass = iconMap[id]; });
+
+            const shortTitle = titleEl ? titleEl.textContent.split(':')[0].trim() : document.title;
+            const crumbs = document.createElement('nav');
+            crumbs.setAttribute('aria-label', 'Breadcrumb');
+            crumbs.innerHTML = '<ol class="tool-hero-crumbs"><li><a href="/">Home</a></li><li class="sep" aria-hidden="true">/</li><li><a href="/tools/">Free Tools</a></li><li class="sep" aria-hidden="true">/</li><li aria-current="page"></li></ol>';
+            crumbs.querySelector('[aria-current]').textContent = shortTitle;
+
+            const icon = document.createElement('div');
+            icon.className = 'tool-hero-icon';
+            icon.setAttribute('aria-hidden', 'true');
+            icon.innerHTML = '<i class="fa-solid ' + iconClass + '"></i>';
+
+            const eyebrow = document.createElement('span');
+            eyebrow.className = 'tool-hero-eyebrow';
+            eyebrow.textContent = 'Free Calculator';
+
+            if (titleEl) {
+                singleHeader.insertBefore(crumbs, titleEl);
+                singleHeader.insertBefore(icon, titleEl);
+                singleHeader.insertBefore(eyebrow, titleEl);
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc && metaDesc.content) {
+                    const lede = document.createElement('p');
+                    lede.className = 'tool-hero-lede';
+                    lede.textContent = metaDesc.content;
+                    titleEl.insertAdjacentElement('afterend', lede);
+                }
+            }
         }
     }
 
@@ -931,16 +967,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 4. Insert Quick Presets for Garage Wire Size Guide
-    const wireApp = document.getElementById('wire-calc-app');
+    const wireApp = document.getElementById('garage-wire-calc-app');
     if (wireApp && !wireApp.querySelector('.calc-presets-bar')) {
         const presetsBar = document.createElement('div');
         presetsBar.className = 'calc-presets-bar';
         presetsBar.innerHTML = `
             <span class="presets-label"><i class="fa-solid fa-bolt"></i> Presets:</span>
-            <button type="button" class="preset-chip active" data-eq="opener-half-hp" data-dist="50" data-mat="copper">1/2 HP Opener (120V 50ft)</button>
-            <button type="button" class="preset-chip" data-eq="ev-charger-level2-50a" data-dist="75" data-mat="copper">Level 2 EV Charger (240V 50A)</button>
-            <button type="button" class="preset-chip" data-eq="garage-heater-30a" data-dist="50" data-mat="copper">240V Garage Heater (30A)</button>
-            <button type="button" class="preset-chip" data-eq="detached-subpanel-100" data-dist="100" data-mat="aluminum">100A Detached Subpanel (Aluminum)</button>
+            <button type="button" class="preset-chip active" data-eq="opener-standard" data-dist="50" data-mat="copper">1/2 HP Opener (50 ft)</button>
+            <button type="button" class="preset-chip" data-eq="ev-charger-32" data-dist="75" data-mat="copper">32A EV Charger (75 ft)</button>
+            <button type="button" class="preset-chip" data-eq="garage-heater" data-dist="50" data-mat="copper">240V Garage Heater (50 ft)</button>
+            <button type="button" class="preset-chip" data-eq="detached-subpanel-100" data-dist="100" data-mat="aluminum">100A Subpanel, Aluminum (100 ft)</button>
         `;
 
         const header = wireApp.querySelector('.calc-header');
@@ -956,7 +992,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const eq = document.getElementById('gwc-equipment');
                 const dist = document.getElementById('gwc-distance');
                 const distVal = document.getElementById('gwc-dist-val');
-                const mat = document.getElementById('gwc-conductor');
+                const mat = document.getElementById('gwc-material');
 
                 if (eq) eq.value = this.getAttribute('data-eq');
                 if (dist) {
