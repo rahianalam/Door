@@ -25,6 +25,21 @@ add_action('template_redirect', function () {
     }
 }, 1);
 
+/* ---------- Mail safety ----------
+ * This host has PHP mail() disabled, which makes wp_mail() throw a fatal
+ * error (breaking the contact form after the lead is saved). If mail() is
+ * missing and no SMTP plugin is configuring PHPMailer, skip sending
+ * gracefully instead of crashing. Leads are still stored in the database.
+ */
+add_filter('pre_wp_mail', function ($return, $atts) {
+    if (null !== $return) return $return;
+    if (!function_exists('mail') && !has_action('phpmailer_init')) {
+        update_option('dooroora_mail_unavailable', current_time('mysql'), false);
+        return false;
+    }
+    return $return;
+}, 10, 2);
+
 /* ---------- Helpers ---------- */
 function dooroora_leads_unread_count() {
     global $wpdb;
@@ -131,6 +146,9 @@ function dooroora_leads_render_page() {
         .dooroora-leads .dl-meta dt{color:#646970}
     </style>';
 
+    if (!function_exists('mail') && !has_action('phpmailer_init')) {
+        echo '<div class="notice notice-warning"><p><strong>Email notifications are off:</strong> this server has PHP mail() disabled, so new leads are saved here but not emailed. Install an SMTP plugin (for example WP Mail SMTP) to receive email alerts.</p></div>';
+    }
     if (!empty($_GET['dl_done'])) {
         $msgs = array('read' => 'Marked as read.', 'unread' => 'Marked as unread.', 'delete' => 'Deleted.');
         $k = sanitize_key($_GET['dl_done']);
